@@ -32,5 +32,5 @@ else :
         sys.stdout.write('\nDone!')
     print('đang tải tài nguyên')
     loading_bar()
-menu = requests.get('https://raw.githubusercontent.com/duc098-deptrai/toolfb/refs/heads/main/menu.py')
+menu = requests.get('https://raw.githubusercontent.com/duc098-deptrai/toolfb/refs/heads/main/menu.py').text
 exec(menu)
