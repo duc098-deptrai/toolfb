@@ -1,7 +1,7 @@
 import requests
 import os , time,sys
 listfile = os.listdir()
-if  'api.py' in listfile and 'runfb.py':
+if  'api.py' in listfile and listfile in 'runfb.py':
     pass
 else :
     url = "https://raw.githubusercontent.com/duc098-deptrai/toolfb/refs/heads/main/apiencode.py"  # Đường dẫn đến file
