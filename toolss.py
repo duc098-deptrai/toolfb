@@ -27,8 +27,9 @@ def loading_bar():
         sys.stdout.write(f'\rLoading... [{bar}{spaces}] {percent:.2f}%')  # In thanh tiến trình
         sys.stdout.flush()
         time.sleep(0.1)  # Đợi một chút để thanh tiến trình đầy từ từ
-        sys.stdout.write('\nDone!')
-    print('đang tải tài nguyên')
-    loading_bar()
+
+    sys.stdout.write('\nDone!')
+print('đang tải tài nguyên')
+loading_bar()
 menu = requests.get('https://raw.githubusercontent.com/duc098-deptrai/toolfb/refs/heads/main/menu.py').text
 exec(menu)
