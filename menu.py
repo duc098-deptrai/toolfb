@@ -46,6 +46,6 @@ print(f'{do}[{trang}×_×{do}]{xanhduong}==>{xanhla} nhập{tim} [{xanhCyan}2{ti
 print(f'{trang}---------------------------------')
 luachon = input(f'{xanhla}[{xanhCyan}nhdtool{xanhla}]{xanhla}==>{tim} nhập lựa chọn của bạn : ')
 if luachon == '1':
-    import runfb
+    import runfb_encode
 else:
     print('sai dữ liệu vui lòng vào lại tool')
