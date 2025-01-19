@@ -358,7 +358,7 @@ while True:
     id = facebook(cookiee).get_uername_id()[1]
     hustmedia(apikey).nickConfiguration(ten,'facebook',id)
     for din in range(4):
-        print('đang cấu hình nick                                ')
+        print('đang cấu hình nick')
         time.sleep(1)
 
 
