@@ -357,7 +357,7 @@ while True:
         elif job_lam == 'thả react base':
                 run_like_cheo(cookie,'basic')
                 continue
-    if cookie == (len(arr_cookie) - 1):
+    if index_cookie == (len(arr_cookie) - 1):
             index_cookie = 0
             continue
     index_cookie += 1
