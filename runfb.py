@@ -55,6 +55,8 @@ elif 'apikey.txt' not in listfile:
                     Write.Print(writeTen,Colors.red_to_purple,interval=0.0001)
                     Write.Print(writesodu,Colors.green_to_red,interval=0.0001)
                     Write.Print('════════════════════════════\n',Colors.blue_to_black,interval=0.0001)
+                    with open('apikey.txt','w') as file:
+                        file.write(nhapApikey1)                    
                     break
                 except:
                     print(f'{do}apikey không đúng')  
@@ -263,6 +265,8 @@ def run_follow_cheo(cookie):
         except TypeError:
             continue
 #{"mess":"Thành công, bạn được cộng 700 điểm"}
+with open('apikey.txt','r') as file:
+    apikey = file.read()
 def run_like_cheo(cookie,che_do):
     get_coin = hustmedia(apikey).danngnhap('facebook')
     if get_coin == 'failure':
