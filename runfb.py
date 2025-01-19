@@ -212,124 +212,129 @@ print(f'{do}[{xanhCyan}4{do}]{xanhla} comment',f'{do}<đang bảo trì>{trang}')
 luachon = input(Colorate.Horizontal(Colors.blue_to_cyan,'>> chọn chế độ (có thể chọn nhiều chế độ vd : 123) : '))
 # get số dư 
 def run_follow_cheo(cookie):
-    get_coin = hustmedia(apikey).danngnhap('facebook')
-    if get_coin == 'failure':
-        print(f'{do}Đăng nhập thất bại')
-        quit()
-    else :
-        coin = int(get_coin)
-    print(f'{xanhCyan}xu của bạn :',coin)
-    hust = hustmedia(apikey)
-    getJob = hust.getJob('subcheo','facebook')['message']
-    print(f'đã thấy {len(getJob)} job follow chéo')
-    for job in getJob:
-        
-        try:
-            idpost = job["idpost"]
-            link = job['link']    
-            delay = random.randint(int(minfl),int(maxfl))
-            for s in range(delay):
-                print(f'{xanhCyan}đang follow {s}', end='\r')
-                time.sleep(1)
-            for lan in range(3):
-                try:
-                    follow = facebook(cookie).follow(idpost)["data"]["actor_subscribe"]["subscribee"]["following_status"]["title"]["text"]                
-                except:
-                    print(f'limt follow')
-                    break
-                if 'Đang theo dõi' in follow:
-                        break 
-            for cho in range(5):
-                print(f'8==> {xanhCyan}Đang nhận xu {cho} ',end='\r')
-                time.sleep(1)
-            for lan_bam_nhan in range(6):
-                for m in range(4):
-                    time.sleep(1)
-                receive_coin = hust.receive_money(idpost,'subcheo','facebook')
-                if 'error' in receive_coin:
-                    if  lan_bam_nhan == 4:
-                            print(f'{trang}[{do}fail{trang}] {do}nhận tiền lỗi                  ')
-                            break
-                    print(f'{xanhduong} Bấm nhận lần {lan_bam_nhan}                               ',end='\r')
-                    time.sleep(0.5)
-                    continue
-                elif "mess" in receive_coin:
-                    try:
-                        coin_da_nhan = int(str(receive_coin['mess']).split('cộng')[1].split('điểm')[0])
-                    except IndexError:
-                        continue
-                    print(f'{trang}[{xanhla}success{trang}]{tim}{idpost}{trang}|{xanhCyan}xu : {coin+coin_da_nhan }')
-                    coin = coin + coin_da_nhan
-                    break
-                #{"mess":"Thành công, bạn được cộng 3600 điểm","sodu":3600}
-        except TypeError:
-            continue
-   
-#{"mess":"Thành công, bạn được cộng 700 điểm"}
-def run_like_cheo(cookie,che_do):
-    get_coin = hustmedia(apikey).danngnhap('facebook')
-    if get_coin == 'failure':
-        print(f'{do}Đăng nhập thất bại')
-        quit()
-    else :
-        coin = int(get_coin)
-    print(f'{xanhduong}xu của bạn :',coin)
-    hust = hustmedia(apikey)
-    if che_do == 'vip':
-        getJob = hust.getJob('camxucvipcheo','facebook')['message']
-        the_loai = 'camxucvipcheo'
-        print(f'đã thấy {len(getJob)} cảm xúc chéo vip')
-    elif che_do == 'basic':
-        getJob = hust.getJob('camxuccheo','facebook')['message']
-        the_loai = 'camxuccheo'
-        print(f'đã thấy {len(getJob)} cảm xúc chéo')
-    for job in getJob:
-        delay_like = random.randint(int(minreact),int(maxreact))
-        link = job['link']
-        loaicx = job['loaicx']
-        idpost = job['idpost'] # để nhận tiền 
-        for delay in range(delay_like):
-            text = Colorate.Horizontal(Colors.cyan_to_green,f'đang like {delay}')
-            print(text,end='\r')
-            time.sleep(1)
-        try:
-            like = facebook(cookie).like(link,loaicx)
-        except:
-            print(f'{do}link bị die{trang}                                     ')
-        for cho in range(4):
-            print(f'{xanhCyan}đang nhận tiền',end='\r')   
-        receive = hust.receive_money(idpost,the_loai,'facebook')
-        if 'error' in str(receive) :
-            for lan_bam_nhan in range(4):
-                print(f'{do}Bấm nhận lại lần thứ {lan_bam_nhan}',end='\r')
-                time.sleep(1)
-                for i in range(4):
-                    time.sleep(1)
-                receive2 = hust.receive_money(idpost,the_loai,'facebook')
-                if 'error' in  str(receive2):
-                    if lan_bam_nhan == 3:
-                        print(link)
-                        print(f'{trang}[{do}fail{trang}] {do}nhận tiền lỗi')
-                    else:
-                        continue
-                elif  "mess" in str(receive2):
-                    try:
-                        coin_vua_nhan1 = int(str(receive2['mess']).split('cộng ')[1].split('điểm')[0])
-                    except:
-                        print('like nick này rồi                           ')
-                        getJob = hust.getJob(the_loai,'facebook')['message']
-                        break
-                    print(f'{trang}[{xanhla}success{trang}]{tim}{link}{trang}|{xanhCyan}xu : {coin+coin_vua_nhan1 }')
-                    coin = coin + coin_vua_nhan1    
-                    #{"mess":"Thành công, bạn được cộng 700 điểm"}
-        elif "Thành công" in str(receive):
+    try:
+        get_coin = hustmedia(apikey).danngnhap('facebook')
+        if get_coin == 'failure':
+            print(f'{do}Đăng nhập thất bại')
+            quit()
+        else :
+            coin = int(get_coin)
+        print(f'{xanhCyan}xu của bạn :',coin)
+        hust = hustmedia(apikey)
+        getJob = hust.getJob('subcheo','facebook')['message']
+        print(f'đã thấy {len(getJob)} job follow chéo')
+        for job in getJob:
+            
             try:
-                coin_vua_nhan2 = int(str(receive['mess']).split('cộng ')[1].split('điểm')[0])
-                tet = Colorate.Horizontal(Colors.yellow_to_green,link)
-                print(f'{trang}[{xanhla}success{trang}]{tet}{trang}|{xanhCyan}xu:{coin+coin_vua_nhan2 }')
-                coin = coin + coin_vua_nhan2
-            except:
+                idpost = job["idpost"]
+                link = job['link']    
+                delay = random.randint(int(minfl),int(maxfl))
+                for s in range(delay):
+                    print(f'{xanhCyan}đang follow {s}', end='\r')
+                    time.sleep(1)
+                for lan in range(3):
+                    try:
+                        follow = facebook(cookie).follow(idpost)["data"]["actor_subscribe"]["subscribee"]["following_status"]["title"]["text"]                
+                    except:
+                        print(f'limt follow')
+                        break
+                    if 'Đang theo dõi' in follow:
+                            break 
+                for cho in range(5):
+                    print(f'8==> {xanhCyan}Đang nhận xu {cho} ',end='\r')
+                    time.sleep(1)
+                for lan_bam_nhan in range(6):
+                    for m in range(4):
+                        time.sleep(1)
+                    receive_coin = hust.receive_money(idpost,'subcheo','facebook')
+                    if 'error' in receive_coin:
+                        if  lan_bam_nhan == 4:
+                                print(f'{trang}[{do}fail{trang}] {do}nhận tiền lỗi                  ')
+                                break
+                        print(f'{xanhduong} Bấm nhận lần {lan_bam_nhan}                               ',end='\r')
+                        time.sleep(0.5)
+                        continue
+                    elif "mess" in receive_coin:
+                        try:
+                            coin_da_nhan = int(str(receive_coin['mess']).split('cộng')[1].split('điểm')[0])
+                        except IndexError:
+                            continue
+                        print(f'{trang}[{xanhla}success{trang}]{tim}{idpost}{trang}|{xanhCyan}xu : {coin+coin_da_nhan }')
+                        coin = coin + coin_da_nhan
+                        break
+                    #{"mess":"Thành công, bạn được cộng 3600 điểm","sodu":3600}
+            except TypeError:
                 continue
+    except:
+        pass
+    #{"mess":"Thành công, bạn được cộng 700 điểm"}
+def run_like_cheo(cookie,che_do):
+    try:
+        get_coin = hustmedia(apikey).danngnhap('facebook')
+        if get_coin == 'failure':
+            print(f'{do}Đăng nhập thất bại')
+            quit()
+        else :
+            coin = int(get_coin)
+        print(f'{xanhduong}xu của bạn :',coin)
+        hust = hustmedia(apikey)
+        if che_do == 'vip':
+            getJob = hust.getJob('camxucvipcheo','facebook')['message']
+            the_loai = 'camxucvipcheo'
+            print(f'đã thấy {len(getJob)} cảm xúc chéo vip')
+        elif che_do == 'basic':
+            getJob = hust.getJob('camxuccheo','facebook')['message']
+            the_loai = 'camxuccheo'
+            print(f'đã thấy {len(getJob)} cảm xúc chéo')
+        for job in getJob:
+            delay_like = random.randint(int(minreact),int(maxreact))
+            link = job['link']
+            loaicx = job['loaicx']
+            idpost = job['idpost'] # để nhận tiền 
+            for delay in range(delay_like):
+                text = Colorate.Horizontal(Colors.cyan_to_green,f'đang like {delay}')
+                print(text,end='\r')
+                time.sleep(1)
+            try:
+                like = facebook(cookie).like(link,loaicx)
+            except:
+                print(f'{do}link bị die{trang}                                     ')
+            for cho in range(4):
+                print(f'{xanhCyan}đang nhận tiền',end='\r')   
+            receive = hust.receive_money(idpost,the_loai,'facebook')
+            if 'error' in str(receive) :
+                for lan_bam_nhan in range(4):
+                    print(f'{do}Bấm nhận lại lần thứ {lan_bam_nhan}',end='\r')
+                    time.sleep(1)
+                    for i in range(4):
+                        time.sleep(1)
+                    receive2 = hust.receive_money(idpost,the_loai,'facebook')
+                    if 'error' in  str(receive2):
+                        if lan_bam_nhan == 3:
+                            print(link)
+                            print(f'{trang}[{do}fail{trang}] {do}nhận tiền lỗi')
+                        else:
+                            continue
+                    elif  "mess" in str(receive2):
+                        try:
+                            coin_vua_nhan1 = int(str(receive2['mess']).split('cộng ')[1].split('điểm')[0])
+                        except:
+                            print('like nick này rồi                           ')
+                            getJob = hust.getJob(the_loai,'facebook')['message']
+                            break
+                        print(f'{trang}[{xanhla}success{trang}]{tim}{link}{trang}|{xanhCyan}xu : {coin+coin_vua_nhan1 }')
+                        coin = coin + coin_vua_nhan1    
+                        #{"mess":"Thành công, bạn được cộng 700 điểm"}
+            elif "Thành công" in str(receive):
+                try:
+                    coin_vua_nhan2 = int(str(receive['mess']).split('cộng ')[1].split('điểm')[0])
+                    tet = Colorate.Horizontal(Colors.yellow_to_green,link)
+                    print(f'{trang}[{xanhla}success{trang}]{tet}{trang}|{xanhCyan}xu:{coin+coin_vua_nhan2 }')
+                    coin = coin + coin_vua_nhan2
+                except:
+                    continue
+    except:
+        pass
 #{"mess":"Thành công, bạn được cộng 700 điểm"}
 
 index_cookie = 0
