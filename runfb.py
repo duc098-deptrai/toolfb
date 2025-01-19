@@ -264,9 +264,8 @@ def run_follow_cheo(cookie):
                 #{"mess":"Thành công, bạn được cộng 3600 điểm","sodu":3600}
         except TypeError:
             continue
+   
 #{"mess":"Thành công, bạn được cộng 700 điểm"}
-with open('apikey.txt','r') as file:
-    apikey = file.read()
 def run_like_cheo(cookie,che_do):
     get_coin = hustmedia(apikey).danngnhap('facebook')
     if get_coin == 'failure':
