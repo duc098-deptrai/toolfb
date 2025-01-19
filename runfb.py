@@ -320,8 +320,8 @@ def run_like_cheo(cookie,che_do):
                         print('like nick này rồi                           ')
                         getJob = hust.getJob(the_loai,'facebook')['message']
                         break
-                print(f'{trang}[{xanhla}success{trang}]{tim}{link}{trang}|{xanhCyan}xu : {coin+coin_vua_nhan1 }')
-                coin = coin + coin_vua_nhan1    
+                    print(f'{trang}[{xanhla}success{trang}]{tim}{link}{trang}|{xanhCyan}xu : {coin+coin_vua_nhan1 }')
+                    coin = coin + coin_vua_nhan1    
                     #{"mess":"Thành công, bạn được cộng 700 điểm"}
         elif "Thành công" in str(receive):
             try:
@@ -350,11 +350,14 @@ while True:
     for job_lam in mission:
         if job_lam == "follow chéo":
                 run_follow_cheo(cookie)
+                continue
         elif job_lam == 'thả react pro':
                 run_like_cheo(cookie,'vip')
+                continue
         elif job_lam == 'thả react base':
                 run_like_cheo(cookie,'basic')
-    if cookie == len(arr_cookie):
+                continue
+    if cookie == (len(arr_cookie) - 1):
             index_cookie = 0
             continue
     index_cookie += 1
