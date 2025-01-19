@@ -295,7 +295,7 @@ def run_like_cheo(cookie,che_do):
         try:
             like = facebook(cookie).like(link,loaicx)
         except:
-            print(f'{do}link bị die{trang}')
+            print(f'{do}link bị die{trang}                                     ')
         for cho in range(4):
             print(f'{xanhCyan}đang nhận tiền',end='\r')   
         receive = hust.receive_money(idpost,the_loai,'facebook')
@@ -334,14 +334,15 @@ def run_like_cheo(cookie,che_do):
 
 index_cookie = 0
 mission = []
-if '1' in luachon:
-    mission.append('follow chéo')
-elif '2' in luachon:  
-    mission.append('thả react pro')
-elif '3'in luachon:
-    mission.append('thả react base')
-with open('listcookie.txt','r',encoding='utf-8') as file:
-    arr_cookie = file.readlines()
+for job_lam in luachon:
+    if '1' in job_lam:
+        mission.append('follow chéo')
+    elif '2' in job_lam:  
+        mission.append('thả react pro')
+    elif '3'in job_lam:
+        mission.append('thả react base')
+    with open('listcookie.txt','r',encoding='utf-8') as file:
+        arr_cookie = file.readlines()
 index_cookie = 0
 while True:
     cookie = str(arr_cookie[index_cookie]).split(':')[1].split('\n')[0]
