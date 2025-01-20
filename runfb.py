@@ -78,15 +78,18 @@ if 'listcookie.txt' in listfile:
             try:
                 check = facebook(cookie).get_uername_id()
                 username = check[0]
-                if username in hustmedia(apikey).get_list_nick('facebook'): 
-                    print(vang,'═══════════════════════════════════════════════\r')
-                    print(xanhCyan,username,f'{trang}</>',xanhCyan,check[1])
-                    print(vang,'═══════════════════════════════════════════════')
-                    i += 1
+                if username in str(hustmedia(apikey).get_list_nick('facebook')): 
+                        print(vang,'═══════════════════════════════════════════════\r')
+                        print(xanhCyan,username,f'{trang}</>',xanhCyan,check[1])
+                        print(vang,'═══════════════════════════════════════════════')
+                        i += 1
+                        nhapcookie = username+ ':' + cookie + '\n'
+                        with open(fileCookie, "a", encoding="utf-8") as file:
+                            file.write(nhapcookie)
                 else:
-                    print(f'{do}nick facebook chưa thêm vào hệ thống')
-                    i += 1
-                    continue
+                        print(f'{do}nick facebook chưa thêm vào hệ thống')
+                        i += 1
+                        continue
             except IndexError:
                 print(f'{do}cookie không đúng')
                 i += 1
