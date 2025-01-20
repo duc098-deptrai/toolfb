@@ -430,4 +430,19 @@ class instagram:
         response = requests.get('https://www.instagram.com/', headers=self.headers).text
         ten = response.split('"username":"')[1].split('"')[0]
         return ten
-#fc = facebook('datr=cgvUZhSZqs0CGV-ohLz83ZPh; sb=eAvUZlHieH3Rj03R7SZ8rx1C; c_user=61555139777272; ps_l=1; ps_n=1; fr=1ceYGmDvWVrBSvEh5.AWXgBgPPanikCYcouwQsTmRQVDc.Bnh8DL..AAA.0.0.Bnh8DL.AWX48wHO2CM; xs=38%3AHNbVjCDkgNpk5w%3A2%3A1725172609%3A-1%3A13846%3A%3AAcWBX7E00AwRMrnB-uJYCgA3aWQHVlcWf4TiXd802gY; presence=C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1736949966938%2C%22v%22%3A1%7D; wd=466x641').like('https://www.facebook.com/nguyennhat37208/posts/pfbid02Pxz6qTZse8tWrJCL9KdLQBeuphT7rLoPE3rfhNfyQfkGqqFpfp6pofkSDvGa8dB1l','LOVE')
+class golike:
+    def __init__(self):
+        pass   
+header = {
+    "Host":"gateway.golike.net",
+    "accept":"application/json, text/plain, */*",
+    "authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9nYXRld2F5LmdvbGlrZS5uZXRcL2FwaVwvbG9naW4iLCJpYXQiOjE3MzczNjkzMzQsImV4cCI6MTc2ODkwNTMzNCwibmJmIjoxNzM3MzY5MzM0LCJqdGkiOiJmQXptclNGclRhZnpWaDhSIiwic3ViIjoyNTA2NDE0LCJwcnYiOiJiOTEyNzk5NzhmMTFhYTdiYzU2NzA0ODdmZmYwMWUyMjgyNTNmZTQ4In0.MXUuj4UfSxulFl556gwyD9CVJywqJaNl2v171irD5-U",
+    "t":"VFZSamVrNTZUVE5OUkVVeFRWRTlQUT09",
+    "user-agent":"Mozilla/5.0 (Linux; Android 7.1.2; SM-N976N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Mobile Safari/537.36",
+    "content-type":"application/json;charset=utf-8",
+    "origin":"https://app.golike.net",
+    "sec-fetch-mode":"cors",
+    "accept-language":"vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5",
+}
+reponse = requests.get('https://gateway.golike.net/api/advertising/publishers/twitter/jobs', headers=header).text
+a = open('tetx.txt','w').write(reponse) 
