@@ -245,15 +245,26 @@ class hustmedia:
         else:
             return 'failure'
     def get_list_nick(self,social):
-        json_data = {
-            'key': self.apikey,
-            'chedo': 'listcauhinh',
-            'social': social,}
-        response = requests.post('https://hust.media/insta/profile.php', headers=self.headers, json=json_data).json()
-        listname = []
-        for i in response["listcauhinh"]:
-            listname.append(i["tenfb"])
-        return listname
+        loi = 0
+        try:
+            def run():
+                json_data = {
+                    'key': self.apikey,
+                    'chedo': 'listcauhinh',
+                    'social': social,}
+                response = requests.post('https://hust.media/insta/profile.php', headers=self.headers, json=json_data).json()
+                listname = []
+                for i in response["listcauhinh"]:
+                    listname.append(i["tenfb"])
+                return listname
+        except KeyError:
+            if loi == 3:
+                quit()
+            for i in range(4):
+                from time import sleep
+                sleep(1)
+            run()
+            loi += 1
     def nickConfiguration(self,tenfb,social,idfb):
         json_data = {
                     'key': self.apikey,
