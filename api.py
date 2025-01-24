@@ -20,17 +20,19 @@ class facebook:
     'sec-fetch-mode': 'cors',
     'sec-fetch-site': 'same-origin',
     'x-asbd-id': '129477',
-    'x-fb-friendly-name': 'CometUFIFeedbackReactMutation',
-        }
-        params = {
-            'entry_point': 'app_settings',}
-        response = requests.get('https://accountscenter.facebook.com/', params=params, headers=self.headers).text
-        id = response.split('"userID":')[1].split(',')[0]
-        params = {
-    'id': id,
-    'locale': 'vi_VN',}
-        get_token = requests.get('https://www.facebook.com/profile.php', params=params, headers=self.headers).text
-        self.token = get_token.split('{"dtsg":{"token":"')[1].split('",')[0]
+    'x-fb-friendly-name': 'CometUFIFeedbackReactMutation',}
+        try:
+            params = {'entry_point': 'app_settings',}
+            response = requests.get('https://accountscenter.facebook.com/', params=params, headers=self.headers).text
+            id = response.split('"userID":')[1].split(',')[0]
+            params = {'id': id,
+                      'locale': 'vi_VN',}
+            get_token = requests.get('https://www.facebook.com/profile.php', params=params, headers=self.headers).text
+            self.token = get_token.split('{"dtsg":{"token":"')[1].split('",')[0] 
+            self.check = 'live'
+        except:
+            self.check = 'die'
+            
     def get_uername_id(self):
         params = {
             'entry_point': 'app_settings',}
@@ -209,6 +211,12 @@ class facebook:
         }
         response = requests.post('https://www.facebook.com/api/graphql/', headers=self.headers, data=data).text
         return response
+    def check_live_fb(self):
+        if self.check == 'die' :
+           check_live_cookie = 'die'
+        elif self.check == 'live' :
+           check_live_cookie = 'live'
+        return check_live_cookie
 class hustmedia:
     def __init__(self,apikey):
         self.apikey = apikey
@@ -305,12 +313,13 @@ class instagram:
     'sec-fetch-dest': 'empty',
     'sec-fetch-mode': 'cors',
     'sec-fetch-site': 'same-origin',
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
     'x-asbd-id': '129477',
     'x-bloks-version-id': '1fbbc4a302825e0a86a865a39546a4fa9f0b70d85f967657fb4bb32422a40f5c',
-    'x-csrftoken': self.cookie.split('csrftoken=')[1].split(';')[0],
-}
-        
+    'x-csrftoken': self.cookie.split('csrftoken=')[1].split(';')[0],}
+     
+        response = requests.get('https://www.instagram.com/', headers=self.headers).text
+        self.tenig = response.split('"username":"')[1].split('"')[0]
+        self.dtsg = requests.get(f'https://www.instagram.com/{self.tenig}/', headers=self.headers).text.split('"dtsg":{"token":"')[1].split('",')[0]
     def like(self,id):
         data = {
         'av': '17841463976553652',
@@ -327,7 +336,7 @@ class instagram:
         '__dyn': '7xeUjG1mxu1syUbFp41twpUnwgU7SbzEdF8aUco2qwJxS0k24o1DU2_CwjE1xoswaq0yE462mcw5Mx62G5UswoEcE7O2l0Fwqo31w9O1TwQzXwae4UaEW2G0AEco5G0zK5o4q3y1Sx-0lKq2-azqwt8d-2u2J0bS1LwTwKG1pg2fwxyo6O1FwlEcUed6goK2O4UrAwHxW1oCz8rwHwrE5SEy9w',
         '__csr': 'gD7gqhIavkaN9y48HlhBZbqHAkBrWFqJ5FllaKCAGDV9Wh9FFr-Ftat2J6z7zFJaTBy5ACqyVpf8m8y8yUlBAoSbz8yu8ze8DKaxp2pByV8G-EG4UG4Kh29kpuit4BCzUV3XwJyUG8Gi4U01euU2Nwik0hi2O0kaqt2FE1pde3tw5pw1CK0u0zwdl2E1iU0AxqwQxAEkwm8zB5wko7i0ii1fqgK2h2A6RfeV27wbxsUHg5u0myq0OE5q0Q8co3Owgk02xC01m-w2C8',
         '__comet_req': '7',
-        'fb_dtsg': 'NAcO5YZaiI4yIUckXZzN94rV_ZbkIHbtHkYSPzAOMJzLS7iuDXTgt0g:17865068956001195:1728736147',
+        'fb_dtsg': self.dtsg,
         'jazoest': '26352',
         'lsd': 'X75RNmje5WVfzVL-Ea0r-t',
         '__spin_r': '1017345987',
@@ -366,7 +375,7 @@ class instagram:
                 '__dyn': '7xeUjG1mxu1syUbFp41twpUnwgU7SbzEdF8aUco2qwJxS0k24o1DU2_CwjE1EE2Cw8G11wBz81s8hwGxu786a3a1YwBgao6C0Mo2swtUd8-U2zxe2GewGw9a361qw8Xxm16wUwtE1uVEbUGdG1QwTU9UaQ0Lo6-3u2WE5B08-269wr86C1mwPwUQp1yUb8jK5V8aUuwm9EO6UaUaE4e1tG8BK4o',
                 '__csr': 'gnglNk5DsSIAoRilGIysgAZajirS_t5jmVlBQmH-iq8hsxbyFUhGmAHQAmdXX-jVu5aDtrKdpuiUCnyoHy48gycyV8ObhWh5xJ5yqKSHDLVEhyHQehQq9x2FHyWUgyoTAeBiCo8Aq8yo01g-U4te08hzqwrU6K0Lk0CU3IwdS2Svo1Lo6JyE0ye0eFwbyVnw129rDBig9okyEGO0l16tVWiw28EZ4cClr6zQ12A8mdQ1OwTF9ixCl0iE5W1jCkM7C5Hxt7xy0SUaoe83uwZ2wCYwk5o2dwBy8Ghw0zXhFQ01luw1fy0fZw1US',
                 '__comet_req': '7',
-                'fb_dtsg': 'NAcPHxu8O_93_Ttyz1kZ5SRg9HvsJF-PX4sgqY5I3BfQ_eWCzarK8xA:17843708194158284:1732955500',
+                'fb_dtsg': self.dtsg,
                 'jazoest': '26219',
                 'lsd': 'Ftl-_viq8yWO_q6ijJJZzp',
                 '__spin_r': '1018751871',
@@ -390,7 +399,6 @@ class instagram:
         return un
     def follow(self,target_user_id):
         data = {
-                
                 '__d': 'www',
                 '__user': '0',
                 '__a': '1',
@@ -404,7 +412,7 @@ class instagram:
                 '__dyn': '7xeUjG1mxu1syaxG4Vp41twpUnwgU7SbzEdF8aUco2qwJyEiw9-1DwUx60p-0LVE4W0om78c87m0yE462mcw5Mx62G5UswoEcE7O2l0Fwqo31w9a9waOfK0zEkxe2GewGw9a3614xm0zK5o4q3y261kx-0lKq2-azqwt8d-2u2J08O321LwTwKG1pg2fwxyo6O1FwlEcUed6goK3ibxKi2qiUqwm9EO6UaU3cG8BK4o',
                 '__csr': '8Yr22SJZsSYZcZPECy9sOEJFv8x9e_WpdF22JvRKAQV9vAaiFAJkl4Bh9dGn8iWp8ymhpp5mmSit7AjmETByQaKUjy9pUBqVEOiu8AxuaZaKh394teGBDGvAAG8GXzooK5ESvmvxbzopyoSfyFEzUox6U06yV00diGOUe96EhBzZw2_QGG0gu2cODgSHw968gjwE80Aagx163qkm1gwpUdp7g0I6yG4k4U1bU4ne0Fo2-xC8w72gcLjDz2AzA0xqxq5-cCy8W1QQ481L0C4k4YUcU2Cw9l0Rw8N0z28-m1cg4W4K9o5lhUNw92OyE7y4EhBhE2EG363mm13w7QaFR2awAg9QgAUnyQ1-wtE0zmrBwbeUlwLo0Yqu1mxaQm0gC1fBx-axe2aZo2wyFE7y9o0aNU09r-it2aTwrU0JWK2pxK0BVQaw7Cz80y1zqwai2O0kLw-wRw',
                 '__comet_req': '7',
-                'fb_dtsg': 'NAcPUaEwOII6I1Hb3gj1Q_ZlKUJD_wfiS35jvm5pmyIVG5MguCFRMwA:17865068956001195:1728736147',
+                'fb_dtsg': self.d,
                 'jazoest': '26179',
                 'lsd': 'tP8SLtrdcEQZFS6mkwuP-9',
                 '__spin_r': '1017538317',
@@ -418,31 +426,12 @@ class instagram:
                             "nav_chain": "PolarisFeedRoot:feedPage:2:topnav-link,PolarisProfilePostsTabRoot:profilePage:3:unexpected,PolarisProfilePostsTabRoot:profilePage:4:unexpected"
                             }''',
                 'server_timestamps': 'true',
-                'doc_id': '7275591572570580',
-            }
-        
+                'doc_id': '7275591572570580',}
         follow = requests.post('https://www.instagram.com/graphql/query',headers=self.headers,data=data).json()
-        
-          
         return follow['data']['xdt_create_friendship']['friendship_status']['following']
-        
     def ten(self):
         response = requests.get('https://www.instagram.com/', headers=self.headers).text
         ten = response.split('"username":"')[1].split('"')[0]
         return ten
-class golike:
-    def __init__(self):
-        pass   
-header = {
-    "Host":"gateway.golike.net",
-    "accept":"application/json, text/plain, */*",
-    "authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9nYXRld2F5LmdvbGlrZS5uZXRcL2FwaVwvbG9naW4iLCJpYXQiOjE3MzczNjkzMzQsImV4cCI6MTc2ODkwNTMzNCwibmJmIjoxNzM3MzY5MzM0LCJqdGkiOiJmQXptclNGclRhZnpWaDhSIiwic3ViIjoyNTA2NDE0LCJwcnYiOiJiOTEyNzk5NzhmMTFhYTdiYzU2NzA0ODdmZmYwMWUyMjgyNTNmZTQ4In0.MXUuj4UfSxulFl556gwyD9CVJywqJaNl2v171irD5-U",
-    "t":"VFZSamVrNTZUVE5OUkVVeFRWRTlQUT09",
-    "user-agent":"Mozilla/5.0 (Linux; Android 7.1.2; SM-N976N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Mobile Safari/537.36",
-    "content-type":"application/json;charset=utf-8",
-    "origin":"https://app.golike.net",
-    "sec-fetch-mode":"cors",
-    "accept-language":"vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5",
-}
-reponse = requests.get('https://gateway.golike.net/api/advertising/publishers/twitter/jobs', headers=header).text
-a = open('tetx.txt','w').write(reponse) 
+#a = facebook('datr=cgvUZhSZqs0CGV-ohLz83ZPh; sb=eAvUZlHieH3Rj03R7SZ8rx1C; ps_l=1; ps_n=1; c_user=61555139777272; fr=1c1LZgXV2LFez93Vz.AWWKiWRTAganvmcOnMuTfOinMGE.Bnjhn7..AAA.0.0.Bnjhn7.AWVN88EwLb8; xs=34%3A3rxiBIQH8O5T2A%3A2%3A1737355317%3A-1%3A13846%3A%3AAcWjbKBbs8x0YdCwYtQQ2Lhp9IVsiEoeNgm2CeJVbQ; presence=C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1737366014128%2C%22v%22%3A1%7D; wd=508x641').check_live_fb()
+#datr=cgvUZhSZqs0CGV-ohLz83ZPh; sb=eAvUZlHieH3Rj03R7SZ8rx1C; ps_l=1; ps_n=1; c_user=61555139777272; fr=1c1LZgXV2LFez93Vz.AWWKiWRTAganvmcOnMuTfOinMGE.Bnjhn7..AAA.0.0.Bnjhn7.AWVN88EwLb8; xs=34%3A3rxiBIQH8O5T2A%3A2%3A1737355317%3A-1%3A13846%3A%3AAcWjbKBbs8x0YdCwYtQQ2Lhp9IVsiEoeNgm2CeJVbQ; presence=C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1737366014128%2C%22v%22%3A1%7D; wd=508x641

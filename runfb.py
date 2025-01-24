@@ -65,6 +65,17 @@ fileCookie = "listcookie.txt"
 i = 1
 with open('apikey.txt','r') as file:
     apikey = file.read()
+# check live cookie fb
+with open('listcookie.txt','r') as cookie:
+    listcookie_check = cookie.readlines()
+for gh in listcookie_check:
+    cookie = gh.split(':')[1].split('\n')[0]
+    name = gh.split(':')[0]
+    check_live = facebook(cookie).check_live_fb()
+    if check_live == 'live':
+        print(f'    | {xanhduong}{name} {tim}[{trang}satus {xanhCyan} : {xanhla}live{tim}]')
+    elif check_live == 'die':
+        print(f'    | {xanhduong}{name} {tim}[{trang}satus {xanhCyan} : {do}die{tim}]')
 if 'listcookie.txt' in listfile:
     textinput = Colorate.Horizontal(Colors.green_to_blue,'Do you want to use cookie fb again (y/n) ?: ')
     luachon = input(textinput)
@@ -214,6 +225,13 @@ print(f'{do}[{xanhCyan}3{do}]{xanhla} thả react base')
 print(f'{do}[{xanhCyan}4{do}]{xanhla} comment',f'{do}<đang bảo trì>{trang}')
 luachon = input(Colorate.Horizontal(Colors.blue_to_cyan,'>> chọn chế độ (có thể chọn nhiều chế độ vd : 123) : '))
 # get số dư 
+#
+
+if 'nt' in os.name:
+    os.system('cls')
+else:
+    os.system('clear')
+print(f'                  {xanhCyan}𓆰♕𓆪\033[31mNHDTOOLS{xanhCyan}𓆰♕𓆪      \n')
 def run_follow_cheo(cookie):
     try:
         get_coin = hustmedia(apikey).danngnhap('facebook')
