@@ -4,7 +4,7 @@ from datetime import datetime
 import random
 from time import sleep
 try:
-    import requests,json
+    import requests,json,numpy
     from pystyle import Colors,Write
     import os,pystyle
     import base64
@@ -14,6 +14,7 @@ except:
     os.system('python -m pip install pystyle')
     os.system('python -m pip install pyfiglet')
     os.system('python -m pip install json')
+    os.system('python -m pip install numpy')
     import requests
     from pystyle import Colors,Write
     import base64
