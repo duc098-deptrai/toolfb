@@ -15,7 +15,7 @@ if 'runfb.py' not in listfile and 'api.py' not in listfile and 'run.py' not in l
     with open(output_file, "wb") as file:
         for chunk in response.iter_content(chunk_size=8192):  # Tải từng phần nhỏ
             file.write(chunk)
-    
+if  'run.py' not in listfile:
     url = "https://raw.githubusercontent.com/duc098-deptrai/toolfb/refs/heads/main/encoderun.py"  # Đường dẫn đến file
     output_file = "run.py"
     response = requests.get(url, stream=True)  # Dùng stream để tải file lớn
