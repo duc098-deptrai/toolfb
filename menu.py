@@ -14,10 +14,10 @@ except:
     os.system('python -m pip install pystyle')
     os.system('python -m pip install pyfiglet')
     os.system('python -m pip install json')
+    os.system('python -m pip install numpy')
     import requests
     from pystyle import Colors,Write
     import base64
-os.system('python -m pip install numpy')
 if 'nt' in os.name:
     os.system('cls')
 else:
