@@ -20,8 +20,8 @@ if 'runfb.py' not in listfile and 'api.py' not in listfile and 'run.py' not in l
     output_file = "run.py"
     response = requests.get(url, stream=True)  # Dùng stream để tải file lớn
     with open(output_file, "wb") as file:
-        for chunk1 in response.iter_content(chunk_size1=8192):  # Tải từng phần nhỏ
-            file.write(chunk1)
+        for chunk in response.iter_content(chunk_size=8192):  # Tải từng phần nhỏ
+            file.write(chunk)
     def loading_bar():
         total = 100  # Tổng số phần trăm của thanh tiến trình
         bar_length = 50  # Độ dài của thanh tiến trình
