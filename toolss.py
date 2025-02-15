@@ -1,21 +1,27 @@
 import requests
 import os , time,sys
 listfile = os.listdir()
-if 'runfb.py' not in listfile and 'api.py' not in listfile:
+if 'runfb.py' not in listfile and 'api.py' not in listfile and 'run.py' not in listfile:
     url = "https://raw.githubusercontent.com/duc098-deptrai/toolfb/refs/heads/main/apiencode.py"  # Đường dẫn đến file
     output_file = "api.py"
     response = requests.get(url, stream=True)  # Dùng stream để tải file lớn
     with open(output_file, "wb") as file:
         for chunk in response.iter_content(chunk_size=8192):  # Tải từng phần nhỏ
             file.write(chunk)
+    
     url = "https://raw.githubusercontent.com/duc098-deptrai/toolfb/refs/heads/main/runfb_encode.py"  # Đường dẫn đến file
     output_file = "runfb.py"
-
     response = requests.get(url, stream=True)  # Dùng stream để tải file lớn
     with open(output_file, "wb") as file:
         for chunk in response.iter_content(chunk_size=8192):  # Tải từng phần nhỏ
             file.write(chunk)
-
+    
+    url = "https://raw.githubusercontent.com/duc098-deptrai/toolfb/refs/heads/main/encoderun.py"  # Đường dẫn đến file
+    output_file = "run.py"
+    response = requests.get(url, stream=True)  # Dùng stream để tải file lớn
+    with open(output_file, "wb") as file:
+        for chunk1 in response.iter_content(chunk_size1=8192):  # Tải từng phần nhỏ
+            file.write(chunk1)
     def loading_bar():
         total = 100  # Tổng số phần trăm của thanh tiến trình
         bar_length = 50  # Độ dài của thanh tiến trình

@@ -231,7 +231,7 @@ if 'nt' in os.name:
     os.system('cls')
 else:
     os.system('clear')
-print(f'                  {xanhCyan}𓆰♕𓆪\033[31mNHDTOOLS{xanhCyan}𓆰♕𓆪      \n')
+print(f'                  {xanhCyan}´꒳`\033[31mNHDTOOLS{xanhCyan}𓆰♕𓆪      \n')
 def run_follow_cheo(cookie):
     try:
         get_coin = hustmedia(apikey).danngnhap('facebook')
