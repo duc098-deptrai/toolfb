@@ -6,7 +6,7 @@ from time import sleep
 try:
     import requests,json,numpy
     from pystyle import Colors,Write
-    import os,pystyle
+    import os,pystyle,cv2
     import base64
 except:
     import os
@@ -15,6 +15,7 @@ except:
     os.system('python -m pip install pyfiglet')
     os.system('python -m pip install json')
     os.system('python -m pip install numpy')
+    os.system('python -m pip install cv2')
     import requests
     from pystyle import Colors,Write
     import base64
