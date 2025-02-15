@@ -154,7 +154,6 @@ class hustmedia_instagram:
                     print('name : '+xanhCyan+name,'☵','số dư instagram : '+xanhla+str(check_apikey))
                     print(Colorate.Horizontal(Colors.yellow_to_red,'═══════════════════════════════════════════════════════════\n'))
                     break
-            hustmedia(apikey_input_1).danngnhap('insta')
             with open('data.json','w') as add_apikey:
                 json.dump({'apikey':apikey_input_1},add_apikey,indent=4)
             with open('data.json','r') as get__apikey:
