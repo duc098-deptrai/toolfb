@@ -30,7 +30,7 @@ class hustmedia_instagram:
             with open('data.json','r') as file1 :
                 datab = json.load(file1)
             apikeycheck = datab['apikey']
-            hustmedia(apikeycheck).danngnhap('insta')
+            hustmedia(apikeycheck).danngnhap("insta")
             stt = 1
             text_cookie = Colorate.Horizontal(Colors.green_to_red,'Do you want to use cookie(y/n) : ')
             text_setting = Colorate.Horizontal(Colors.purple_to_blue,"Do you want to use setting(y/n) : ")
@@ -154,7 +154,7 @@ class hustmedia_instagram:
                     print('name : '+xanhCyan+name,'☵','số dư instagram : '+xanhla+str(check_apikey))
                     print(Colorate.Horizontal(Colors.yellow_to_red,'═══════════════════════════════════════════════════════════\n'))
                     break
-            hustmedia(apikey_input_1).dangnhap('insta')
+            hustmedia(apikey_input_1).danngnhap('insta')
             with open('data.json','w') as add_apikey:
                 json.dump({'apikey':apikey_input_1},add_apikey,indent=4)
             with open('data.json','r') as get__apikey:
@@ -386,38 +386,38 @@ class hustmedia_instagram:
                         print(f'{do}like thất bại hoặc link die',end="\r")
                         time.sleep(2)
                         continue
-    def run():
-        hustmedia_instagram.menu()
-        print(f'{do}[{trang}1{do}]{xanhCyan} AUTO FOLLOW IG')
-        print(f'{do}[{trang}2{do}]{xanhCyan} AUTO LIKE IG')
-        while True:
-            text = Colorate.Horizontal(Colors.blue_to_green,'>>> Chọn chế độ (vd:1) : ')
-            che_do = input(text)
-            if che_do == '1' or che_do == '2':
-                break
-            else:
-                print(f'{vang}[{do}??{vang}] lỗi cú pháp .VUI LÒNG NHẬP LẠI')
-                continue 
-        with open('data.json','r') as file:
-            data = json.load(file)
-        list_cookie = data['listcookie']
-        stttt = 1
-        for data_name in list_cookie:
-            name = data_name['name']
-            print(Colorate.Horizontal(Colors.cyan_to_blue,f"   [{stttt}] {name}"))
-            stttt+=1
-        chon_nick = input(f'{vang} Chọn nick để chạy (có thể chọn nhiều nick) (vd:123): ').split(" ")
-        cookie_chay = []
-        for index in chon_nick:
-            cookie1 = list_cookie[int(index)-1]['cookie']
-            cookie_chay.append(cookie1)
-        while True:
-            for cookie in cookie_chay:
-                if che_do == '1':
-                    hustmedia_instagram.Run_follow_ig(cookie)
-                else :
-                    hustmedia_instagram.Run_like(cookie)
-            
+def run():
+    hustmedia_instagram.menu()
+    print(f'{do}[{trang}1{do}]{xanhCyan} AUTO FOLLOW IG')
+    print(f'{do}[{trang}2{do}]{xanhCyan} AUTO LIKE IG')
+    while True:
+        text = Colorate.Horizontal(Colors.blue_to_green,'>>> Chọn chế độ (vd:1) : ')
+        che_do = input(text)
+        if che_do == '1' or che_do == '2':
+            break
+        else:
+            print(f'{vang}[{do}??{vang}] lỗi cú pháp .VUI LÒNG NHẬP LẠI')
+            continue 
+    with open('data.json','r') as file:
+        data = json.load(file)
+    list_cookie = data['listcookie']
+    stttt = 1
+    for data_name in list_cookie:
+        name = data_name['name']
+        print(Colorate.Horizontal(Colors.cyan_to_blue,f"   [{stttt}] {name}"))
+        stttt+=1
+    chon_nick = input(f'{vang} Chọn nick để chạy (có thể chọn nhiều nick) (vd:123): ').split(" ")
+    cookie_chay = []
+    for index in chon_nick:
+        cookie1 = list_cookie[int(index)-1]['cookie']
+        cookie_chay.append(cookie1)
+    while True:
+        for cookie in cookie_chay:
+            if che_do == '1':
+                hustmedia_instagram.Run_follow_ig(cookie)
+            else :
+                hustmedia_instagram.Run_like(cookie)
+        
 class ADB:
     def __init__(self,handle):
         self.handle = handle

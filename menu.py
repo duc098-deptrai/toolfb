@@ -54,8 +54,9 @@ luachon = input(f'{xanhla}[{xanhCyan}nhdtool{xanhla}]{xanhla}==>{tim} nhập l�
 if luachon == '1':
     import runfb
 elif luachon == '2':
-    from run import hustmedia_instagram as run
+    import run
     run.run()
+ 
 
 else:
     print('sai dữ liệu vui lòng vào lại tool')
