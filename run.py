@@ -254,7 +254,7 @@ class hustmedia_instagram:
                         else:
                             delay_follow = random.randint(int(min_fl),int(max_fl))
                             idpost = lits_job['idpost']
-                            link = lits_job['lienket']
+                            link = str(lits_job['lienket']).split("com/")[1]
                             follow = instagram(cookie).follow(idpost)
                             for wait in range(delay_follow,0,-1):
                                 print("➤",Colorate.Horizontal(Colors.red_to_blue,f" Đang follow {wait}/{delay_follow}           "),end="\r")
