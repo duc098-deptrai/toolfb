@@ -274,7 +274,8 @@ class hustmedia_instagram:
                                     print(f"Đang bấm follow lần thứ  :  {lan_bam_followLai}",end="\r")
                                     follow_lai = instagram(cookie).follow(idpost)
                                     if follow_lai:
-                                        print(f'{trang}[{xanhla}{sojob}/{xanhCyan}{max_job }] {vang}follow thành công >>  {Colorate.Horizontal(Colors.pink,lits_job['idpost']) }<|> {link}')
+                                        print(f'{trang}[{xanhla}{sojob}/{xanhCyan}{max_job }] {vang}follow thành công >>  {tim}{idpost} {trang}<|> {xanhla}{link}')
+                                        arr_nick_da_follow.append(idpost)
                                         sojob += 1
                                         break
                                     else:
