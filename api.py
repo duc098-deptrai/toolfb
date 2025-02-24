@@ -3,9 +3,10 @@ import base64
 class facebook:
     def __init__(self,cookie):
         self.cookie = cookie
+        self.session = requests.Session()
+        self.session.cookies.update(cookie)
         self.headers = {
     'accept': '*/*',
-    'cookie': self.cookie,
     'origin': 'https://www.facebook.com',
     'priority': 'u=1, i',
     'referer': 'https://www.facebook.com/',
@@ -23,11 +24,11 @@ class facebook:
     'x-fb-friendly-name': 'CometUFIFeedbackReactMutation',}
         try:
             params = {'entry_point': 'app_settings',}
-            response = requests.get('https://accountscenter.facebook.com/', params=params, headers=self.headers).text
+            response = self.session.get('https://accountscenter.facebook.com/', params=params, headers=self.headers).text
             id = response.split('"userID":')[1].split(',')[0]
             params = {'id': id,
                       'locale': 'vi_VN',}
-            get_token = requests.get('https://www.facebook.com/profile.php', params=params, headers=self.headers).text
+            get_token = self.session.get('https://www.facebook.com/profile.php', params=params, headers=self.headers).text
             self.token = get_token.split('{"dtsg":{"token":"')[1].split('",')[0] 
             self.check = 'live'
         except:
@@ -36,7 +37,7 @@ class facebook:
     def get_uername_id(self):
         params = {
             'entry_point': 'app_settings',}
-        response = requests.get('https://accountscenter.facebook.com/', params=params, headers=self.headers).text
+        response = self.session.get('https://accountscenter.facebook.com/', params=params, headers=self.headers).text
         name = response.split('"full_name":"')[1].split('"')[0]
         id = response.split('"userID":')[1].split(',')[0]
         a = [name,id]
@@ -78,7 +79,7 @@ class facebook:
     'server_timestamps': 'true',
     'doc_id': '28167180839546919',
         }
-        response = requests.post('https://www.facebook.com/api/graphql/', headers=self.headers, data=data).json()
+        response = self.session.post('https://www.facebook.com/api/graphql/', headers=self.headers, data=data).json()
         return response
     
     def like(self,link,type):
@@ -165,7 +166,7 @@ class facebook:
     'server_timestamps': 'true',
     'doc_id': '8995964513767096',}
         
-        response = requests.post('https://www.facebook.com/api/graphql/', headers=self.headers, data=data).text
+        response =self.session.post('https://www.facebook.com/api/graphql/', headers=self.headers, data=data).text
 # tim :1678524932434102
 # tuc gian = 444813342392137
 # wow 478547315650144 
@@ -296,6 +297,8 @@ class instagram:
     def __init__(self,cookie):
         try:
             self.cookie = cookie
+            self.session = requests.Session()
+            self.session.cookies.update(cookie)
             self.headers = {
         'accept': '*/*',
         'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
@@ -317,9 +320,9 @@ class instagram:
         'x-asbd-id': '129477',
         'x-bloks-version-id': '1fbbc4a302825e0a86a865a39546a4fa9f0b70d85f967657fb4bb32422a40f5c',
         'x-csrftoken': self.cookie.split('csrftoken=')[1].split(';')[0],}
-            response = requests.get('https://www.instagram.com/', headers=self.headers).text
+            response = self.session.get('https://www.instagram.com/', headers=self.headers).text
             self.tenig = response.split('"username":"')[1].split('"')[0]
-            self.dtsg = requests.get(f'https://www.instagram.com/{self.tenig}/', headers=self.headers).text.split('"dtsg":{"token":"')[1].split('",')[0]
+            self.dtsg = self.session.get(f'https://www.instagram.com/{self.tenig}/', headers=self.headers).text.split('"dtsg":{"token":"')[1].split('",')[0]
             self.check = 'live'
         except :
             self.check = 'die'
@@ -361,7 +364,7 @@ class instagram:
         'server_timestamps': 'true',
         'doc_id': '8552604541488484',
             }
-        a = requests.post('https://www.instagram.com/graphql/query',headers=self.headers,data=data)
+        a = self.session.post('https://www.instagram.com/graphql/query',headers=self.headers,data=data)
         return a.json()['status']
     def unlike(self,id):
         data = {
@@ -399,7 +402,7 @@ class instagram:
                 'server_timestamps': 'true',
                 'doc_id': '8525474704176507',
             }
-        un = requests.post('https://www.instagram.com/graphql/query',headers=self.headers,data=data).text
+        un = self.session.post('https://www.instagram.com/graphql/query',headers=self.headers,data=data).text
         return un
     def follow(self,target_user_id):
         data = {
@@ -432,19 +435,20 @@ class instagram:
                 'server_timestamps': 'true',
                 'doc_id': '7275591572570580',}
         
-        follow = requests.post('https://www.instagram.com/graphql/query',headers=self.headers,data=data).json()
+        follow = self.session.post('https://www.instagram.com/graphql/query',headers=self.headers,data=data).json()
         try:
             return follow['data']['xdt_create_friendship']['friendship_status']['following']
         except TypeError:    
             with open('tetx.txt','w') as f:
                 f.write(str(follow))
     def ten(self):
-        response = requests.get('https://www.instagram.com/', headers=self.headers).text
+        response = self.session.get('https://www.instagram.com/', headers=self.headers).text
         ten = response.split('"username":"')[1].split('"')[0]
         return ten
     def check_live_ig(self):
         return self.check
-
+class theader:
+    pass
      
 # a = hustmedia('3XLCuoYOXYU6r3MeSxPuNPR3hFHIDRL9kRAo7rm88rzzMzd').receive_money('46891830529,71214280199,42443313904,70893240913,71583300225,71658272231,55935506353 ',"subcheo","insta")
 # # a = facebook('datr=cgvUZhSZqs0CGV-ohLz83ZPh; sb=eAvUZlHieH3Rj03R7SZ8rx1C; ps_l=1; ps_n=1; c_user=61555139777272; fr=1qvlXBf08TEShdiM7.AWWnHY7VRJkgppIoT0ay6xxcbrc.Bnk0Hl..AAA.0.0.Bnk0Hl.AWWEO7-h2wg; xs=1%3A4UIaqdxLuodDRQ%3A2%3A1737552272%3A-1%3A6491%3A%3AAcUyDw-OH_YAJYxThnlONdVFG2NAI1uDq3CUDhP2sA; presence=C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1737703909334%2C%22v%22%3A1%7D; wd=508x641').check_live_fb()
