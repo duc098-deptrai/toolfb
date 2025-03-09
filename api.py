@@ -219,7 +219,9 @@ class facebook:
            check_live_cookie = 'live'
         return check_live_cookie
 class hustmedia:
+    
     def __init__(self,apikey):
+        self.session = requests.Session()
         self.apikey = apikey
         self.headers = {
         'accept': 'application/json, text/plain, */*',
@@ -234,20 +236,20 @@ class hustmedia:
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-origin',
         }
-    def getJob(self,theloai='',social=''):
+    def getJob(self,theloai='',social='',chedo = 'getjop'):
         json_data = {
         'key': self.apikey,
-        'chedo': 'getjop',
+        'chedo': chedo,
         'theloai': theloai,
         'social': social,}
-        response = requests.post('https://hust.media/insta/profile.php', headers=self.headers, json=json_data).json() 
+        response = self.session.post('https://hust.media/insta/profile.php', headers=self.headers, json=json_data).json() 
         return response
     def danngnhap(self,social):
         json_data = {
                 'key': self.apikey,
                 'chedo': 'kiemtradangnhap',
                 'social': social,}
-        login = requests.post('https://hust.media/insta/profile.php',headers=self.headers,json=json_data).json()
+        login = self.session.post('https://hust.media/insta/profile.php',headers=self.headers,json=json_data).json()
         if 'message' in login:
             sodiem = login['sodiem']
             return sodiem
@@ -259,7 +261,7 @@ class hustmedia:
                     'key': self.apikey,
                     'chedo': 'listcauhinh',
                     'social': social,}
-        response = requests.post('https://hust.media/insta/profile.php', headers=self.headers, json=json_data).json()
+        response = self.session.post('https://hust.media/insta/profile.php', headers=self.headers, json=json_data).json()
         listname = []
         for i in response["listcauhinh"]:
                     listname.append(i["tenfb"])
@@ -274,7 +276,7 @@ class hustmedia:
                     'social': social,
                     'tenfb': tenfb,}
 
-        response = requests.post('https://hust.media/insta/profile.php',headers=self.headers, json=json_data).text
+        response = self.session.post('https://hust.media/insta/profile.php',headers=self.headers, json=json_data).text
         return response
     def receive_money(self,idpost,theloai,social):
         data = {
@@ -282,7 +284,7 @@ class hustmedia:
             'idpost':idpost,
             'theloai': theloai,
             'social':social, }   
-        a = requests.post('https://hust.media/insta/nhantien.php', headers=self.headers,json = data).json()
+        a = self.session.post('https://hust.media/insta/nhantien.php', headers=self.headers,json = data).json()
         return a
     def get_usernameHutsmedia(self):
         json_data = {
@@ -291,7 +293,7 @@ class hustmedia:
     'option': 'showusername',
     'lienketchay': '',}
 
-        response = requests.post('https://hust.media/api/profile/profile.php', headers=self.headers, json=json_data).json()
+        response = self.session.post('https://hust.media/api/profile/profile.php', headers=self.headers, json=json_data).json()
         return response['message']
 class instagram:
     def __init__(self,cookie):
